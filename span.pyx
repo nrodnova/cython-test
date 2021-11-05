@@ -12,8 +12,7 @@ cdef class Span :
         print("Creating Span<%d, %d>" % (start, end))
 
         self.c_ptr = shared_ptr[SpanC](new SpanC(id = 0, start = start, end = end, start_char = 0, end_char = 0, label = label, kb_id = kb_id))
-        self.c = self.c_ptr.get()
-        #self.c_ptr = shared_ptr[SpanC](new SpanC())
+        self.c = self.c_ptr.get() # I don't like this, but it would make the syntax backward-compatible. Unless there is a solution that would allow returning SpanC* in class' property, currently I am getting a cython error
 
     property start :
         def __get__(self) :
